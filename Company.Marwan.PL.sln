@@ -5,9 +5,9 @@ VisualStudioVersion = 17.14.36221.1 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Marwan.PL", "Company.Marwan.PL\Company.Marwan.PL.csproj", "{AA3E96E2-724F-46AE-ACC9-2252E2F8E070}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Marwan.DAL", "Company.Marwan.DAL\Company.Marwan.DAL.csproj", "{885A5015-53D6-4465-893B-CD5E8A63C82B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Marwan.BLL", "Company.Marwan.DAL\Company.Marwan.BLL.csproj", "{885A5015-53D6-4465-893B-CD5E8A63C82B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Marwan.BLL", "Company.Marwan.DLL\Company.Marwan.BLL.csproj", "{4A05EEAE-0176-4566-874A-4F4CE1DCC258}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Marwan.DAL", "Company.Marwan.DLL\Company.Marwan.DAL.csproj", "{4A05EEAE-0176-4566-874A-4F4CE1DCC258}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
