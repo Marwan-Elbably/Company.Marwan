@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Company.Marwan.DAL.Data.Configrations
 {
-    internal class DepartmentConfigurations : IEntityTypeConfiguration<Department>
+    public class DepartmentConfigurations : IEntityTypeConfiguration<Department>
     {
         public void Configure(EntityTypeBuilder<Department> builder)
         {
