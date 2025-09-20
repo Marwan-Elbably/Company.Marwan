@@ -11,7 +11,7 @@ namespace Company.Marwan.DAL.Data.contexts
 {
     public class CompanyDbcontext : DbContext
     {
-        public CompanyDbcontext() : base() 
+        public CompanyDbcontext(DbContextOptions<CompanyDbcontext> options) : base(options) 
         { 
         
         }
@@ -21,10 +21,10 @@ namespace Company.Marwan.DAL.Data.contexts
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server = . ; Database = Company ; Trusted_connection = True ; TrustServerCertificate = True");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("");
+        //}
 
         public DbSet<Department> departments { get; set; }
 

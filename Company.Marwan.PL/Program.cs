@@ -1,3 +1,8 @@
+using Company.Marwan.BLL.Interfaces;
+using Company.Marwan.BLL.Reposatires;
+using Company.Marwan.DAL.Data.contexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace Company.Marwan.PL
 {
     public class Program
@@ -8,7 +13,17 @@ namespace Company.Marwan.PL
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); // Allow DI for Department repo
+            builder.Services.AddDbContext<CompanyDbcontext>(options =>
+            {
 
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+
+
+            } );
+            
+            // Allow DI for CompanyDbContext
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
