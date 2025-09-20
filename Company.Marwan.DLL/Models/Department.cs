@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Company.Marwan.BLL.Models
 {
-    internal class Department
+    public class Department
     {
         public int Id { get; set; }
 
