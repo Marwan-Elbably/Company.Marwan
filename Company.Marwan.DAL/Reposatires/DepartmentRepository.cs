@@ -10,12 +10,15 @@ using System.Threading.Tasks;
 
 namespace Company.Marwan.BLL.Reposatires
 {
-    internal class DepartmentRepository : IDepartmentRepository
+    public class DepartmentRepository : IDepartmentRepository
     {
         private readonly CompanyDbcontext _context;
-        public DepartmentRepository()
+
+
+
+        public DepartmentRepository(CompanyDbcontext context)
         {
-            _context = new CompanyDbcontext();  
+            _context = context;  
         }
         public IEnumerable<Department> GetAll()
         {
