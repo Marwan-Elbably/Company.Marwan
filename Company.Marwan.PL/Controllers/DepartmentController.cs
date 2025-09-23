@@ -29,6 +29,8 @@ namespace Company.Marwan.PL.Controllers
             return  View();
         
         }
+
+
         [HttpPost]
         public IActionResult Create(CreateDepartmentDto model)
         {
@@ -57,6 +59,111 @@ namespace Company.Marwan.PL.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult Details(int? id,string viewname="Details") {
+
+            if (id is null) {
+
+                return BadRequest("Invalid Id");
+
+            }
+           var department = _departmentRepository.Get(id.Value);
+            if (department is null) { 
+            
+                return NotFound(new {statuscode =404 , message =$"Department With ID : {id} is not found"});
+            
+            }
+            return View(viewname,department);
+
+
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int? id) {
+
+
+            return Details(id,"Edit");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken] // With Post Action 
+        public IActionResult Edit([FromRoute] int id,Department department)
+        {
+            if (ModelState.IsValid) {
+
+                if (id != department.Id) return BadRequest(); // 400
+
+                    var count = _departmentRepository.Update(department);
+                    if (count > 0)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+
+
+
+                
+
+
+
+            }
+
+           
+            return View(department);
+
+
+
+
+
+
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+
+            return Details(id, "Delete");
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken] // With Post Action 
+        public IActionResult Delete([FromRoute] int id, Department department)
+        {
+            if (ModelState.IsValid)
+            {
+
+                if (id != department.Id) {
+                    return BadRequest();
+                        
+                  } // 400
+
+                var count = _departmentRepository.delete(department);
+
+                if (count > 0)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+
+
+
+
+
+
+            }
+
+
+            return View(department);
+
+
+
+
+
+
+        }
 
     }
 }
