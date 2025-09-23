@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Company.Marwan.BLL.Reposatires;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Company.Marwan.DAL.Models
 {
-    public class Employee
-    {
+    public class Employee : BaseEntity
+    { 
         public int Id { get; set; }
 
         public string Name { get; set; }

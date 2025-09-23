@@ -9,48 +9,8 @@ using System.Threading.Tasks;
 
 namespace Company.Marwan.BLL.Reposatires
 {
-    internal class EmployeeRepositry : IEmployeeRepository
+    internal class EmployeeRepositry : GenericRepository<Employee> , IEmployeeRepository
     {
-        private readonly CompanyDbcontext _context;
-        public EmployeeRepositry(CompanyDbcontext context ) { 
-        
-            _context = context;
-        
-        }
-
-        public IEnumerable<Employee> GetAll()
-        {
-           return _context.employees.ToList();
-        }
-        
-        public Employee? Get(int Id)
-        {
-            return _context.employees.Find(Id);
-        }
-
-        public int Add(Employee model)
-        {
-             _context.employees.Add(model);
-            return _context.SaveChanges();
-        }
-
-
-        public int Update(Employee model)
-        {
-
-            _context.employees.Update(model);
-            return _context.SaveChanges();
-        }
-
-        public int delete(Employee model)
-        {
-
-            _context.employees.Remove(model);
-            return _context.SaveChanges();
-        }
-
-        
        
-
     }
 }

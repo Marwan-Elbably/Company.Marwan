@@ -8,17 +8,8 @@ using System.Threading.Tasks;
 
 namespace Company.Marwan.BLL.Interfaces
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository : IGenaricRepository<Employee>
     {
-
-        IEnumerable<Employee> GetAll(); // get all department
-
-        Employee? Get(int Id); // get spical department
-
-        int Add(Employee model);
-        int delete(Employee model);
-        int Update(Employee model);
-
 
 
 
