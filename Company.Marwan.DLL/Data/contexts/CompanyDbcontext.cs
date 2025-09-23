@@ -1,4 +1,5 @@
 ﻿using Company.Marwan.BLL.Models;
+using Company.Marwan.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace Company.Marwan.DAL.Data.contexts
 
         public DbSet<Department> departments { get; set; }
 
-
+        public DbSet<Employee> employees { get; set; }
 
 
 
