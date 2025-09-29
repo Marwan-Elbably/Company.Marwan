@@ -1,6 +1,7 @@
 using Company.Marwan.BLL.Interfaces;
 using Company.Marwan.BLL.Reposatires;
 using Company.Marwan.DAL.Data.contexts;
+using Company.Marwan.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.Marwan.PL
@@ -13,7 +14,9 @@ namespace Company.Marwan.PL
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); // Allow DI for Department repo
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepositry>(); // Allow DI for Department repo
+            // Allow DI for Department repo
             builder.Services.AddDbContext<CompanyDbcontext>(options =>
             {
 

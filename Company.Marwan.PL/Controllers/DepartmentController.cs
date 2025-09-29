@@ -18,7 +18,6 @@ namespace Company.Marwan.PL.Controllers
         [HttpGet] // GEt : /Department/Index 
         public IActionResult Index()
         {
-            
            var departments= _departmentRepository.GetAll();
             return View(departments);
         }

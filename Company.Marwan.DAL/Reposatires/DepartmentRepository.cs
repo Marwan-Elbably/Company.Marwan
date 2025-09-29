@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace Company.Marwan.BLL.Reposatires
 {
-    public class DepartmentRepository : GenericRepository<Department> ,IDepartmentRepository
+    public class DepartmentRepository : GenericRepository<Department>, IDepartmentRepository
     {
-      
-
+        public DepartmentRepository(CompanyDbcontext context) : base(context)
+        {
+        }
     }
 }

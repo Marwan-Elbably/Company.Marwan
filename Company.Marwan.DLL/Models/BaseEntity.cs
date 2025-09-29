@@ -10,6 +10,6 @@ namespace Company.Marwan.BLL.Reposatires
     {
         public int Id { get; set; }
 
-
+        
     }
 }

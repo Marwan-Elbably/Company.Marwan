@@ -1,4 +1,5 @@
 ﻿using Company.Marwan.BLL.Interfaces;
+using Company.Marwan.DAL.Data.contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,30 +10,39 @@ namespace Company.Marwan.BLL.Reposatires
 {
     public class GenericRepository<T> : IGenaricRepository<T> where T : BaseEntity
     {
+        private readonly CompanyDbcontext _context;
+        public GenericRepository(CompanyDbcontext context) { 
+            _context = context;
+        
+        }
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+           return _context.Set<T>().ToList();
+
         }
         public T? Get(int Id)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().Find(Id);
         }
 
         public int Add(T model)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Add(model);
+            return _context.SaveChanges();
         }
 
         public int delete(T model)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Remove(model);
+            return _context.SaveChanges();
         }
 
        
        
         public int Update(T model)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(model);
+            return _context.SaveChanges();
         }
     }
 
