@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Company.Marwan.DAL\Company.Marwan.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Department\NewFolder\" />
+  </ItemGroup>
+
 </Project>

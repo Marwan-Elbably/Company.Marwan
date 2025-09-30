@@ -1,4 +1,4 @@
-namespace Company.Marwan.PL.Models
+namespace Company.Marwan.PL.Views.Dto
 {
     public class ErrorViewModel
     {

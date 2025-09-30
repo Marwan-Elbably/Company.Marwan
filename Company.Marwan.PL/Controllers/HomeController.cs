@@ -1,5 +1,6 @@
 using System.Diagnostics;
-using Company.Marwan.PL.Models;
+using Company.Marwan.DAL.Models;
+using Company.Marwan.PL.Views.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Marwan.PL.Controllers

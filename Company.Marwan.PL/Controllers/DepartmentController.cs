@@ -1,7 +1,7 @@
 ﻿using Company.Marwan.BLL.Interfaces;
 using Company.Marwan.BLL.Models;
 using Company.Marwan.BLL.Reposatires;
-using Company.Marwan.PL.Dto;
+using Company.Marwan.PL.Views.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Marwan.PL.Controllers

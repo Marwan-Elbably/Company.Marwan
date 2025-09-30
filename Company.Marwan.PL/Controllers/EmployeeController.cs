@@ -2,7 +2,7 @@
 using Company.Marwan.BLL.Models;
 using Company.Marwan.BLL.Reposatires;
 using Company.Marwan.DAL.Models;
-using Company.Marwan.PL.Dto;
+using Company.Marwan.PL.Views.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Marwan.PL.Controllers
@@ -71,21 +71,57 @@ namespace Company.Marwan.PL.Controllers
 
 
         }
+        [HttpGet]
+        public IActionResult Edit(int? id) {
 
-        public IActionResult Edit(int? id) { 
-        
-            return Details(id,"Edit");
+            if (id is null) return BadRequest("Invalid ID");
+
+            var employee = _employeeRepository.Get(id.Value);
+            if (employee is null) return NotFound(new { StatusCode = 404, message = $"Employee with Id : {id} is not Found " });
+            var employeeDto = new CreateEmployeeDto()
+            {
+                
+                Name = employee.Name,
+                Address = employee.Address,
+                Age = employee.Age,
+                CreateAt = employee.CreateAt,
+                HiringDate = employee.HiringDate,
+                Email = employee.Email,
+                IsActive = employee.IsActive,
+                IsDeleted = employee.IsDeleted,
+                Phone = employee.Phone,
+                Salary = employee.Salary,
+
+
+            };
+
+            return View(employeeDto);
         
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, Employee model) {
+        public IActionResult Edit([FromRoute] int id, CreateEmployeeDto model) {
 
             if (ModelState.IsValid) {
+                var employee = new Employee()
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    Address = model.Address,
+                    Age = model.Age,
+                    CreateAt = model.CreateAt,
+                    HiringDate = model.HiringDate,
+                    Email = model.Email,
+                    IsActive = model.IsActive,
+                    IsDeleted = model.IsDeleted,
+                    Phone = model.Phone,
+                    Salary = model.Salary,
 
-                if (id != model.Id) return BadRequest();
-                var count = _employeeRepository.Update(model);
+
+                };
+                // if (id != model.Id) return BadRequest();
+                var count = _employeeRepository.Update(employee);
                 if (count > 0) {
 
                     return RedirectToAction(nameof(Index));

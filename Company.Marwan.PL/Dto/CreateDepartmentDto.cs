@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Company.Marwan.PL.Dto
+namespace Company.Marwan.PL.Views.Dto
 {
     public class CreateDepartmentDto
     {
