@@ -4,12 +4,36 @@
 
 @{
     ViewData["Title"] = "Index";
+   // ViewData["message"] as ;
 }
 
 <h1>All Employees</h1>
 
 <br />
 <br />
+
+<form>
+   <div class="container m-4">
+       <div class="row">
+            <div class="col-6">
+                <input placeholder="Search By Name" name="SearchInput" class="form-control" />
+            </div>
+            <div class="col-6">
+
+                <input type="submit" class="btn btn-success" value="Search" />
+            </div>
+       </div>
+       
+   </div>
+</form>
+
+@if (!string.IsNullOrEmpty(TempData["Message"]as string))
+{
+<div class="m-3 alert alert-info">
+    <p>@TempData["Message"]</p>
+
+</div>
+}
 
 <a asp-action="Create" asp-controller="Employee" class=" btn btn-primary">Create Employee</a>
 
@@ -36,6 +60,7 @@
                 <th>IsDeleted</th>
                 <th>@Html.DisplayNameFor(E=>E.HiringDate)</th>
                 <th>@Html.DisplayNameFor(E => E.CreateAt)</th>
+                <th>Department</th>
                 <th>Details</th>
                 <th>Update</th>
                 <th>Delete</th>
@@ -61,6 +86,9 @@
                     <td>@item.IsDeleted</td>
                     <td>@item.HiringDate</td>
                     <td>@item.CreateAt</td>
+                    <td>@item.Department?.name</td>
+                  
+                    
                     <partial name="EmployeeDepartmentIndexPartialView" model="@item.Id" />
 
                 </tr>

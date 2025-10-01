@@ -10,20 +10,44 @@ namespace Company.Marwan.PL.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IDepartmentRepository _departmentRepository;
 
-        public EmployeeController(IEmployeeRepository employeeRepository)
+        public EmployeeController(IEmployeeRepository employeeRepository,IDepartmentRepository departmentRepository)
         {
             _employeeRepository = employeeRepository;
+            _departmentRepository = departmentRepository;
         }
 
         [HttpGet] // GET : /Department/Index 
-        public IActionResult Index()
+        public IActionResult Index(string? SearchInput)
         {
-            var employee = _employeeRepository.GetAll();
+            IEnumerable<Employee> employee ;
+            if (string.IsNullOrEmpty(SearchInput))
+            {
+                 employee = _employeeRepository.GetAll();
+
+            }
+            else
+            {
+                 employee = _employeeRepository.GetByName(SearchInput);
+
+            }
+
+
+
+
+            // Dictionary : 
+            // ViewDate
+            ViewData["message"] = "Hello From ViewData";
+            // ViewBAg
+            //TempData
+
             return View(employee);
         }
         [HttpGet]
         public IActionResult Create() {
+           var departments = _departmentRepository.GetAll();
+            ViewData["departments"] = departments;
             return View();
         
         }
@@ -44,13 +68,15 @@ namespace Company.Marwan.PL.Controllers
                     IsDeleted = model.IsDeleted,
                     Phone = model.Phone,
                     Salary = model.Salary,
+                    DepartmentID=model.DepartmentId,
 
 
                 };
                 var count = _employeeRepository.Add(employee);
                 if (count > 0) {
+                    TempData["Message"] = "Employee is Created !!";
                     return RedirectToAction(nameof(Index));
-                
+                   
                 
                 }
             
@@ -73,6 +99,8 @@ namespace Company.Marwan.PL.Controllers
         }
         [HttpGet]
         public IActionResult Edit(int? id) {
+            var departments = _departmentRepository.GetAll();
+            ViewData["departments"] = departments;
 
             if (id is null) return BadRequest("Invalid ID");
 
@@ -91,17 +119,17 @@ namespace Company.Marwan.PL.Controllers
                 IsDeleted = employee.IsDeleted,
                 Phone = employee.Phone,
                 Salary = employee.Salary,
-
+                
 
             };
 
-            return View(employeeDto);
+            return View(employee);
         
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, CreateEmployeeDto model) {
+        public IActionResult Edit([FromRoute] int id, Employee model) {
 
             if (ModelState.IsValid) {
                 var employee = new Employee()

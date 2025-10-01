@@ -1,6 +1,8 @@
-﻿using Company.Marwan.BLL.Reposatires;
+﻿using Company.Marwan.BLL.Models;
+using Company.Marwan.BLL.Reposatires;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,7 @@ namespace Company.Marwan.DAL.Models
 {
     public class Employee : BaseEntity
     { 
-        public int Id { get; set; }
+       
 
         public string Name { get; set; }
 
@@ -31,5 +33,9 @@ namespace Company.Marwan.DAL.Models
         public DateTime HiringDate { get; set; }
 
         public DateTime CreateAt { get; set; }
+
+        [DisplayName("Department")]
+        public int? DepartmentID { get; set; }
+        public Department? Department { get; set; }
     }
 }

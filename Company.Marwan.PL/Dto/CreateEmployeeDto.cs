@@ -30,5 +30,7 @@ namespace Company.Marwan.PL.Views.Dto
         [DisplayName("Date OF Creation")]
 
         public DateTime CreateAt { get; set; }
+
+        public int? DepartmentId { get; set; }
     }
 }

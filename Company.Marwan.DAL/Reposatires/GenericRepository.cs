@@ -1,5 +1,7 @@
 ﻿using Company.Marwan.BLL.Interfaces;
 using Company.Marwan.DAL.Data.contexts;
+using Company.Marwan.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +19,21 @@ namespace Company.Marwan.BLL.Reposatires
         }
         public IEnumerable<T> GetAll()
         {
+            if (typeof(T) == typeof(Employee))
+            {
+                return (IEnumerable<T>) _context.employees.Include(E=>E.Department).ToList();
+
+            }
            return _context.Set<T>().ToList();
 
         }
         public T? Get(int Id)
         {
+            if (typeof(T) == typeof(Employee))
+            {
+                return _context.employees.Include(E => E.Department).FirstOrDefault(E=>E.Id==Id) as T;
+
+            }
             return _context.Set<T>().Find(Id);
         }
 

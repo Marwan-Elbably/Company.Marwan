@@ -21,11 +21,12 @@ namespace Company.Marwan.PL.Controllers
            var departments= _departmentRepository.GetAll();
             return View(departments);
         }
+
         [HttpGet]
         public IActionResult Create() { 
-        
-        
-            return  View();
+           
+
+            return View();
         
         }
 
