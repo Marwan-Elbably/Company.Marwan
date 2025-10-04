@@ -2,8 +2,10 @@
 using Company.Marwan.BLL.Models;
 using Company.Marwan.BLL.Reposatires;
 using Company.Marwan.DAL.Models;
+using Company.Marwan.PL.Helpers;
 using Company.Marwan.PL.Views.Dto;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Company.Marwan.PL.Controllers
 {
@@ -19,17 +21,17 @@ namespace Company.Marwan.PL.Controllers
         }
 
         [HttpGet] // GET : /Department/Index 
-        public IActionResult Index(string? SearchInput)
+        public async Task<IActionResult> Index(string? SearchInput)
         {
             IEnumerable<Employee> employee ;
             if (string.IsNullOrEmpty(SearchInput))
             {
-                 employee = _employeeRepository.GetAll();
+                 employee = await _employeeRepository.GetAllAsync();
 
             }
             else
             {
-                 employee = _employeeRepository.GetByName(SearchInput);
+                 employee = await _employeeRepository.GetByNameAsync(SearchInput);
 
             }
 
@@ -38,24 +40,33 @@ namespace Company.Marwan.PL.Controllers
 
             // Dictionary : 
             // ViewDate
-            ViewData["message"] = "Hello From ViewData";
+           // ViewData["message"] = "Hello From ViewData";
             // ViewBAg
             //TempData
 
             return View(employee);
         }
         [HttpGet]
-        public IActionResult Create() {
-           var departments = _departmentRepository.GetAll();
+        public async Task<IActionResult> Create() {
+           var departments = await _departmentRepository.GetAllAsync();
             ViewData["departments"] = departments;
             return View();
         
         }
 
         [HttpPost]
-        public IActionResult Create(CreateEmployeeDto model)
+        public async Task<IActionResult> Create(CreateEmployeeDto model)
         {
+            
+           
+          
             if (ModelState.IsValid) {
+
+                if (model.Image is not null)
+                {
+                  model.ImageName =  DocumentSetting.UplodeFile(model.Image, "images");
+
+                }
                 var employee = new Employee()
                 {
                     Name = model.Name,
@@ -69,27 +80,28 @@ namespace Company.Marwan.PL.Controllers
                     Phone = model.Phone,
                     Salary = model.Salary,
                     DepartmentID=model.DepartmentId,
+                    ImageName=model.ImageName,
 
 
                 };
-                var count = _employeeRepository.Add(employee);
+                var count = await _employeeRepository.AddAsync(employee);
                 if (count > 0) {
-                    TempData["Message"] = "Employee is Created !!";
+                   // TempData["Message"] = "Employee is Created !!";
                     return RedirectToAction(nameof(Index));
                    
                 
                 }
-            
+               
             }
-            return View();
+            return View(model);
 
         }
         [HttpGet]
-       public  IActionResult Details(int? id , string ViewName = "Details")
+       public  async Task<IActionResult> Details(int? id , string ViewName = "Details")
         {
             if (id is null) return BadRequest("Invalid ID");
 
-            var employee = _employeeRepository.Get(id.Value);
+            var employee = await _employeeRepository.GetAsync(id.Value);
             if (employee is null) return NotFound(new { StatusCode = 404, message = $"Employee with Id : {id} is not Found " });
 
             return View(ViewName, employee);
@@ -98,13 +110,13 @@ namespace Company.Marwan.PL.Controllers
 
         }
         [HttpGet]
-        public IActionResult Edit(int? id) {
-            var departments = _departmentRepository.GetAll();
+        public async Task<IActionResult> Edit(int? id) {
+            var departments =await _departmentRepository.GetAllAsync();
             ViewData["departments"] = departments;
 
             if (id is null) return BadRequest("Invalid ID");
 
-            var employee = _employeeRepository.Get(id.Value);
+            var employee =await _employeeRepository.GetAsync(id.Value);
             if (employee is null) return NotFound(new { StatusCode = 404, message = $"Employee with Id : {id} is not Found " });
             var employeeDto = new CreateEmployeeDto()
             {
@@ -119,19 +131,32 @@ namespace Company.Marwan.PL.Controllers
                 IsDeleted = employee.IsDeleted,
                 Phone = employee.Phone,
                 Salary = employee.Salary,
+                DepartmentId=employee.DepartmentID,
+                ImageName = employee.ImageName,
                 
 
             };
 
-            return View(employee);
+            return View(employeeDto);
         
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, Employee model) {
+        public async Task<IActionResult> Edit([FromRoute] int id, CreateEmployeeDto model) {
 
             if (ModelState.IsValid) {
+
+                if (model.ImageName is not null && model.Image is not null) {
+
+                    DocumentSetting.DeleteFile(model.ImageName, "Images");
+                
+                }
+                if(model.Image is not null)
+                {
+                    model.ImageName =  DocumentSetting.UplodeFile(model.Image, "Images");
+                }
+
                 var employee = new Employee()
                 {
                     Id = model.Id,
@@ -145,7 +170,7 @@ namespace Company.Marwan.PL.Controllers
                     IsDeleted = model.IsDeleted,
                     Phone = model.Phone,
                     Salary = model.Salary,
-
+                    ImageName = model.ImageName,
 
                 };
                 // if (id != model.Id) return BadRequest();
@@ -156,7 +181,12 @@ namespace Company.Marwan.PL.Controllers
                 
                 
                 }
-          
+                if (count > 1000)
+                {
+                     var departments =await _departmentRepository.GetAllAsync();
+
+                }
+
             }
             return View(model);
 
@@ -167,17 +197,17 @@ namespace Company.Marwan.PL.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
 
-            return Details(id, "Delete");
+            return await Details(id, "Delete");
 
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken] // With Post Action 
-        public IActionResult Delete([FromRoute] int id, Employee model)
+        public IActionResult Delete([FromRoute] int id, CreateEmployeeDto model)
         {
             if (ModelState.IsValid)
             {
@@ -187,11 +217,30 @@ namespace Company.Marwan.PL.Controllers
                     return BadRequest();
 
                 } // 400
+                var employee = new Employee()
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    Address = model.Address,
+                    Age = model.Age,
+                    CreateAt = model.CreateAt,
+                    HiringDate = model.HiringDate,
+                    Email = model.Email,
+                    IsActive = model.IsActive,
+                    IsDeleted = model.IsDeleted,
+                    Phone = model.Phone,
+                    Salary = model.Salary,
+                    ImageName = model.ImageName,
 
-                var count =_employeeRepository.delete(model);
+                };
+                var count =_employeeRepository.delete(employee);
 
                 if (count > 0)
                 {
+                    if (model.ImageName is not null)
+                    {
+                        DocumentSetting.DeleteFile(model.ImageName, "Images");
+                    }
                     return RedirectToAction(nameof(Index));
                 }
 

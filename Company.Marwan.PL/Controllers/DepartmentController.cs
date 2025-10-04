@@ -3,6 +3,7 @@ using Company.Marwan.BLL.Models;
 using Company.Marwan.BLL.Reposatires;
 using Company.Marwan.PL.Views.Dto;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Company.Marwan.PL.Controllers
 {     // MVC controller
@@ -16,9 +17,9 @@ namespace Company.Marwan.PL.Controllers
             _departmentRepository =  departmentRepository;
         }
         [HttpGet] // GEt : /Department/Index 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-           var departments= _departmentRepository.GetAll();
+           var departments=await _departmentRepository.GetAllAsync();
             return View(departments);
         }
 
@@ -32,7 +33,7 @@ namespace Company.Marwan.PL.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(CreateDepartmentDto model)
+        public async Task<IActionResult> Create(CreateDepartmentDto model)
         {
             if (ModelState.IsValid) // server side validation
             {
@@ -44,7 +45,7 @@ namespace Company.Marwan.PL.Controllers
 
                 };
 
-              var count =  _departmentRepository.Add(department);
+              var count = await _departmentRepository.AddAsync(department);
 
                 if (count > 0) { 
                     
@@ -60,14 +61,14 @@ namespace Company.Marwan.PL.Controllers
         }
 
         [HttpGet]
-        public IActionResult Details(int? id,string viewname="Details") {
+        public async Task<IActionResult> Details(int? id,string viewname="Details") {
 
             if (id is null) {
 
                 return BadRequest("Invalid Id");
 
             }
-           var department = _departmentRepository.Get(id.Value);
+           var department =await _departmentRepository.GetAsync(id.Value);
             if (department is null) { 
             
                 return NotFound(new {statuscode =404 , message =$"Department With ID : {id} is not found"});
@@ -79,10 +80,10 @@ namespace Company.Marwan.PL.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int? id) {
+        public async Task<IActionResult> Edit(int? id) {
 
 
-            return Details(id,"Edit");
+            return await Details(id,"Edit");
 
         }
 
@@ -120,10 +121,10 @@ namespace Company.Marwan.PL.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
 
-            return Details(id, "Delete");
+            return await Details(id, "Delete");
 
 
         }

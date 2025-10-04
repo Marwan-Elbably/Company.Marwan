@@ -49,10 +49,10 @@
         <thead>
 
             <tr>
-
+                <th>Image</th>
                 <th>Name</th>
                 <th>Age</th>
-                <th>Email
+                <th>Email</th>
                 <th>Address</th>
                 <th>Phone</th>
                 <th>Salary</th>
@@ -60,7 +60,7 @@
                 <th>IsDeleted</th>
                 <th>@Html.DisplayNameFor(E=>E.HiringDate)</th>
                 <th>@Html.DisplayNameFor(E => E.CreateAt)</th>
-                <th>Department</th>
+                <th>Department?</th>
                 <th>Details</th>
                 <th>Update</th>
                 <th>Delete</th>
@@ -76,6 +76,9 @@
             {
                 
                 <tr>
+                    <td>
+                        <img src="~/Files/Images/@item.ImageName" class="img-fluid rounded-circle"/>
+                    </td>
                     <td>@item.Name</td>
                     <td>@item.Age</td>
                     <td>@item.Email</td>
@@ -109,7 +112,6 @@ else
     <div class="mt-4 alert alert-success">
 
         <h4>
-
             there are no employees
         </h4>
 

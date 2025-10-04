@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <Folder Include="Views\Department\NewFolder\" />
+    <Folder Include="wwwroot\Files\Images\" />
+    <Folder Include="wwwroot\Files\Videos\" />
   </ItemGroup>
 
 </Project>

@@ -37,5 +37,7 @@ namespace Company.Marwan.DAL.Models
         [DisplayName("Department")]
         public int? DepartmentID { get; set; }
         public Department? Department { get; set; }
+
+        public string? ImageName { get; set; }
     }
 }

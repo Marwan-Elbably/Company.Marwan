@@ -11,7 +11,7 @@ namespace Company.Marwan.BLL.Interfaces
     public interface IEmployeeRepository : IGenaricRepository<Employee>
     {
 
-       List<Employee> GetByName(string name);
+       Task<List<Employee>> GetByNameAsync(string name);
 
 
 

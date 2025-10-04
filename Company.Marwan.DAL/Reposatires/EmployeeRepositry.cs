@@ -1,6 +1,7 @@
 ﻿using Company.Marwan.BLL.Interfaces;
 using Company.Marwan.DAL.Data.contexts;
 using Company.Marwan.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace Company.Marwan.BLL.Reposatires
             _context = context;
         }
 
-        public List<Employee> GetByName(string name)
+        public async Task<List<Employee>> GetByNameAsync(string name)
         {
-           return _context.employees.Where(E=>E.Name.ToLower().Contains(name.ToLower())).ToList();
+           return await _context.employees.Where(E=>E.Name.ToLower().Contains(name.ToLower())).ToListAsync();
         }
     }
 }

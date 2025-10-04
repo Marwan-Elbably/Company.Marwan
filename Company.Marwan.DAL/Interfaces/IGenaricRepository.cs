@@ -11,11 +11,11 @@ namespace Company.Marwan.BLL.Interfaces
     {
 
 
-        IEnumerable<T> GetAll(); // get all department
+        Task<IEnumerable<T>> GetAllAsync(); // get all department
 
-        T? Get(int Id); // get spical department
+       Task<T?> GetAsync(int Id); // get spical department
 
-        int Add(T model);
+        Task<int> AddAsync(T model);
         int delete(T model);
         int Update(T model);
 

@@ -8,9 +8,10 @@
 <br />
 <br />
 
-<form asp-action="Delete">
+<form asp-action="Delete" enctype="multipart/form-data">
 
     <partial name="EmployeePartialView/_DeleteDetailsPartialView" />
+    <input asp-for="ImageName"hidden />
 
     <div class="my-3 ">
 
