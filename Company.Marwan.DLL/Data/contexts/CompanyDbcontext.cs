@@ -1,5 +1,7 @@
 ﻿using Company.Marwan.BLL.Models;
 using Company.Marwan.DAL.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Company.Marwan.DAL.Data.contexts
 {
-    public class CompanyDbcontext : DbContext
+    public class CompanyDbcontext : IdentityDbContext<AppUser>
     {
         public CompanyDbcontext(DbContextOptions<CompanyDbcontext> options) : base(options) 
         { 
@@ -31,10 +33,7 @@ namespace Company.Marwan.DAL.Data.contexts
 
         public DbSet<Employee> employees { get; set; }
 
-
-
-
-
+        
 
     }
 }

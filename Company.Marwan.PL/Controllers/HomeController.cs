@@ -1,10 +1,12 @@
 using System.Diagnostics;
 using Company.Marwan.DAL.Models;
 using Company.Marwan.PL.Views.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Marwan.PL.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -4,11 +4,13 @@ using Company.Marwan.BLL.Reposatires;
 using Company.Marwan.DAL.Models;
 using Company.Marwan.PL.Helpers;
 using Company.Marwan.PL.Views.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Company.Marwan.PL.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;

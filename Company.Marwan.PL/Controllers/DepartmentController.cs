@@ -2,11 +2,13 @@
 using Company.Marwan.BLL.Models;
 using Company.Marwan.BLL.Reposatires;
 using Company.Marwan.PL.Views.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Company.Marwan.PL.Controllers
 {     // MVC controller
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly IDepartmentRepository _departmentRepository;
