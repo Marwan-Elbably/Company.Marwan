@@ -1,4 +1,4 @@
-using Company.Marwan.BLL.Interfaces;
+﻿using Company.Marwan.BLL.Interfaces;
 using Company.Marwan.BLL.Reposatires;
 using Company.Marwan.DAL.Data.contexts;
 using Company.Marwan.DAL.Models;
@@ -17,19 +17,20 @@ namespace Company.Marwan.PL
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepositry>(); // Allow DI for Department repo
+                   
             // Allow DI for Department repo
             builder.Services.AddDbContext<CompanyDbcontext>(options =>
             {
-
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-
-
-
-            } );
+            });
 
             builder.Services.AddIdentity<AppUser, IdentityRole>()
                              .AddEntityFrameworkStores<CompanyDbcontext>()
                              .AddDefaultTokenProviders();
+
+            //builder.Services.AddIdentity<AppUser, IdentityUser>();
+                            //.AddEntityFrameworkStores<CompanyDbcontext>()
+                            //.AddDefaultTokenProviders();
 
             builder.Services.ConfigureApplicationCookie(config =>
             {
@@ -62,6 +63,12 @@ namespace Company.Marwan.PL
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+
+
+
+
 
             app.Run();
         }

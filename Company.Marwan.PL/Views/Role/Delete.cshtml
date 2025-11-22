@@ -1,0 +1,55 @@
+﻿@using Company.Marwan.DAL.Models
+@using Company.Marwan.PL.Dto
+@model RoleToReturnDto
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete User </h1>
+<br />
+<br />
+
+<form asp-action="Delete" enctype="multipart/form-data">
+
+    <partial name="EmployeePartialView/_DeleteDetailsPartialView" />
+    
+
+    <div class="my-3 ">
+
+        <input type="submit" value="Delete" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-light ">Back to list </a>
+
+
+    </div>
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

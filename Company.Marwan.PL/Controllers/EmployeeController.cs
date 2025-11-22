@@ -101,6 +101,7 @@ namespace Company.Marwan.PL.Controllers
         [HttpGet]
        public  async Task<IActionResult> Details(int? id , string ViewName = "Details")
         {
+            CreateEmployeeDto createEmployeeDto = new CreateEmployeeDto();
             if (id is null) return BadRequest("Invalid ID");
 
             var employee = await _employeeRepository.GetAsync(id.Value);
@@ -172,6 +173,7 @@ namespace Company.Marwan.PL.Controllers
                     IsDeleted = model.IsDeleted,
                     Phone = model.Phone,
                     Salary = model.Salary,
+                    DepartmentID=model.DepartmentId,
                     ImageName = model.ImageName,
 
                 };
@@ -246,21 +248,10 @@ namespace Company.Marwan.PL.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-
-
-
-
-
-
             }
 
 
             return View(model);
-
-
-
-
-
 
         }
 

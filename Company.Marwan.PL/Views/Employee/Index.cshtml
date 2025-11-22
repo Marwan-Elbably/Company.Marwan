@@ -60,7 +60,7 @@
                 <th>IsDeleted</th>
                 <th>@Html.DisplayNameFor(E=>E.HiringDate)</th>
                 <th>@Html.DisplayNameFor(E => E.CreateAt)</th>
-                <th>Department?</th>
+                <th>@Html.DisplayNameFor(E => E.Department)</th>
                 <th>Details</th>
                 <th>Update</th>
                 <th>Delete</th>
@@ -92,7 +92,7 @@
                     <td>@item.Department?.name</td>
                   
                     
-                    <partial name="EmployeeDepartmentIndexPartialView" model="@item.Id" />
+                    <partial name="EmployeeDepartmentIndexPartialView" model="@item.Id.ToString()" />
 
                 </tr>
 
